@@ -24,7 +24,7 @@ export const register = async (req: any, res: any) => {
   });
 };
 
-const login = async (req: any, res: any) => {
+export const login = async (req: any, res: any) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
