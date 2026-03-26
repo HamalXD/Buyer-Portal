@@ -14,23 +14,25 @@ export const getFavourites = async (req: any, res: any, next: any) => {
 
 export const addFavourite = async (req: any, res: any, next: any) => {
   try {
-    const propertyId = req.param.id;
-
+    const propertyId = req.params.id;
+    const userId = req.user.id;
     const exists = await Favourite.findOne({
-      user: req.userId,
+      user: userId,
       property: propertyId,
     });
 
-    if (!exists) {
+    if (exists) {
       return res.status(400).json({ message: "Already favourited" });
     }
 
     await Favourite.create({
-      user: req.userId,
+      user: userId,
       property: propertyId,
     });
 
-    res.json({ message: "Added to favourites" });
+    res.json({
+      message: "Added to favourites",
+    });
   } catch (error) {
     next(error);
   }
