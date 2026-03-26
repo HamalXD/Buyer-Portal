@@ -3,16 +3,19 @@ import {
   useGetFavouritesQuery,
   useAddFavouriteMutation,
   useRemoveFavouriteMutation,
+  apiSlice,
 } from "../features/api/apiSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { type RootState } from "../store";
 import { logout } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Dashboard = () => {
   const { data: properties, isLoading: propLoading } = useGetPropertiesQuery();
   const { data: favourites } = useGetFavouritesQuery();
   const [addFav] = useAddFavouriteMutation();
   const [removeFav] = useRemoveFavouriteMutation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
 
@@ -23,12 +26,18 @@ export const Dashboard = () => {
     else addFav(id);
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(apiSlice.util.resetApiState());
+    navigate("/login");
+  };
+
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Welcome, {user?.name}</h1>
         <button
-          onClick={() => dispatch(logout())}
+          onClick={handleLogout}
           className="bg-red-500 text-white px-4 py-2"
         >
           Logout

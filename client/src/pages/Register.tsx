@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRegisterMutation } from "../features/api/apiSlice";
+import { apiSlice, useRegisterMutation } from "../features/api/apiSlice";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../features/auth/authSlice";
 import { useNavigate, Link } from "react-router-dom";
@@ -37,7 +37,9 @@ export const Register = () => {
     try {
       const res = await register({ name, email, password }).unwrap();
       dispatch(setCredentials(res));
-      navigate("/dashboard");
+
+      dispatch(apiSlice.util.resetApiState());
+      navigate("/login");
     } catch (err: any) {
       setErrors(err?.data?.message || "Registration failed");
     }
