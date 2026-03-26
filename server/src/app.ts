@@ -22,9 +22,9 @@ app.get("/", (_req, res) => {
 app.use("/auth", authRoutes);
 app.use("/favourites", favouriteRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 5000;
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on ${PORT}`);
 });
 
