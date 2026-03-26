@@ -4,12 +4,10 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/db";
 import authRoutes from "./routes/auth.routes";
 import favouriteRoutes from "./routes/favourites.routes";
+import propertyRoutes from "./routes/property.routes";
 import { errorHandler } from "./middleware/error.middleware";
 
 dotenv.config();
-
-connectDB();
-
 const app = express();
 
 app.use(cors());
@@ -21,6 +19,9 @@ app.get("/", (_req, res) => {
 
 app.use("/auth", authRoutes);
 app.use("/favourites", favouriteRoutes);
+app.use("/properties", propertyRoutes);
+
+connectDB();
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 5000;
 
