@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db";
+import authRoutes from "./routes/auth.routes";
+import favouriteRoutes from "./routes/favourites.routes";
 
 dotenv.config();
 
@@ -13,6 +15,9 @@ app.use(express.json());
 app.get("/", (_req, res) => {
   res.send("API running");
 });
+
+app.use("/auth", authRoutes);
+app.use("/favourites", favouriteRoutes);
 
 const PORT = process.env.PORT || 5000;
 
