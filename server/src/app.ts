@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/db";
 import authRoutes from "./routes/auth.routes";
 import favouriteRoutes from "./routes/favourites.routes";
+import { errorHandler } from "./middleware/error.middleware";
 
 dotenv.config();
 
@@ -26,3 +27,5 @@ app.listen(PORT, () => {
 });
 
 connectDB();
+
+app.use(errorHandler);
