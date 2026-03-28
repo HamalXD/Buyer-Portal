@@ -136,7 +136,7 @@ After login:
 Header format:
 
 
-Authorization: Bearer <token>
+Authorization: Bearer `token`
 
 
 Protected routes require this header.
