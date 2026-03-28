@@ -1,9 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const apiURL = import.meta.env.VITE_API_BASE_URL;
+
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
+    baseUrl: apiURL,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as any).auth.token;
       if (token) headers.set("Authorization", `Bearer ${token}`);
@@ -18,11 +20,10 @@ export const apiSlice = createApi({
     register: builder.mutation({
       query: (body) => ({ url: "/auth/register", method: "POST", body }),
     }),
-    getProperties: builder.query<any[], void>({
+    getProperties: builder.query({
       query: () => "/properties",
-      providesTags: ["Properties"],
     }),
-    getFavourites: builder.query<any[], void>({
+    getFavourites: builder.query({
       query: () => "/favourites",
       providesTags: ["Favourites"],
     }),

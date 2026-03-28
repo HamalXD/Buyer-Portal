@@ -3,6 +3,7 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Dashboard } from "./pages/Dashboard";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import AuthRedirect from "./components/AuthRedirect";
 
 export const App = () => (
   <BrowserRouter>
@@ -17,7 +18,8 @@ export const App = () => (
           </ProtectedRoute>
         }
       />
-      <Route path="*" element={<Login />} />
+      <Route path="/" element={<AuthRedirect />} />
+      <Route path="*" element={<AuthRedirect />} />
     </Routes>
   </BrowserRouter>
 );
