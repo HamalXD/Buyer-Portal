@@ -20,10 +20,10 @@ export const apiSlice = createApi({
     register: builder.mutation({
       query: (body) => ({ url: "/auth/register", method: "POST", body }),
     }),
-    getProperties: builder.query({
+    getProperties: builder.query<any, void>({
       query: () => "/properties",
     }),
-    getFavourites: builder.query({
+    getFavourites: builder.query<any, void>({
       query: () => "/favourites",
       providesTags: ["Favourites"],
     }),
