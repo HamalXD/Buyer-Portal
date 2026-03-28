@@ -10,7 +10,16 @@ import { errorHandler } from "./middleware/error.middleware";
 dotenv.config();
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://techkraftbuyerportal.vercel.app/",
+      "http://localhost:3000",
+    ],
+    methods: ["GET", "POST", "DELETE"],
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 app.get("/", (_req, res) => {
